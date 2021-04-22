@@ -28,6 +28,6 @@ class Campaign implements CampaignInterface
 
     public function ageSegment(): string
     {
-        return '18-40';
+        return '0:99';
     }
 }

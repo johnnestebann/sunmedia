@@ -10,13 +10,17 @@ class Exchange implements ExchangeInterface
 
     public function match(?UserInterface $user): ?CampaignInterface
     {
-        $campaign = null;
+        $matchedCampaign = null;
 
-        if (null !== $user) {
-
+        if (null !== $user && count($this->campaigns) > 0) {
+            foreach ($this->campaigns as $campaign) {
+                if ($user->inSegment($campaign->ageSegment()) && $campaign->priority() === 'high') {
+                    $matchedCampaign = $campaign;
+                }
+            }
         }
 
-        return $campaign;
+        return $matchedCampaign;
     }
 
     public function addCampaign(?CampaignInterface $campaign): void
