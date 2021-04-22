@@ -21,14 +21,14 @@ class User implements UserInterface
         return mt_rand(0, 99);
     }
 
-    public function inSegment(?string $segment): bool
+    public static function inSegment(?UserInterface $user, ?string $segment): bool
     {
         $inSegment = false;
 
-        if (null !== $segment && $segment !== "") {
+        if (null !== $user && null !== $segment && $segment !== "") {
             $aux = explode(':', $segment);
 
-            if ($this->age() > $aux[0] && $this->age() < $aux[1]) {
+            if ($user->age() > $aux[0] && $user->age() < $aux[1]) {
                 $inSegment = true;
             }
         }

@@ -13,10 +13,18 @@ class Exchange implements ExchangeInterface
         $matchedCampaign = null;
 
         if (null !== $user && count($this->campaigns) > 0) {
-            foreach ($this->campaigns as $campaign) {
-                if ($user->inSegment($campaign->ageSegment()) && $campaign->priority() === 'high') {
-                    $matchedCampaign = $campaign;
+            
+            for ($i = 0; $i < count($this->campaigns); $i++) {
+                if (User::inSegment($user, $this->campaigns[$i]->ageSegment()) &&
+                    $this->campaigns[$i]->gender() === $user->gender() && 
+                    $this->campaigns[$i]->device() === $user->device() &&
+                    $this->campaigns[$i]->priority() === 'high') {
+                    $matchedCampaign = $this->campaigns[$i];
                 }
+            }
+
+            if ($matchedCampaign === null && $this->campaigns[0]->priority() === "low") {
+                $matchedCampaign = $this->campaigns[0];
             }
         }
 
