@@ -5,7 +5,7 @@ use SunMedia\ExchangeInterface;
 
 class Exchange implements ExchangeInterface
 {
-    /** @var CampaignInterface[]|null */
+    /** @var CampaignInterface[] */
     private array $campaigns;
 
     public function match(?UserInterface $user): ?CampaignInterface
